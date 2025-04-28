@@ -71,7 +71,7 @@ public class Cu002_agregarUbicacionAlTrayectoTest {
             fail("No se lanzó la excepción esperada");
 
         } catch (Exception e) {
-            
+            //ok
         }
 
     }
@@ -94,9 +94,8 @@ public class Cu002_agregarUbicacionAlTrayectoTest {
             fail("No se lanzó la excepción esperada");
 
         } catch (Exception e) {
-            
+            //ok
         }
-
 
     }
 
