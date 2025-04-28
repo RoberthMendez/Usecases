@@ -16,7 +16,7 @@ import com.bicicletas.trayectos.modelo.Trayecto;
 import jakarta.transaction.Transactional;
 
 @SpringBootTest
-public class Cu_003_FinalizarTrayectoTest {
+public class Cu003_FinalizarTrayectoTest {
 
     @Autowired
     TrayectosService servicio;
