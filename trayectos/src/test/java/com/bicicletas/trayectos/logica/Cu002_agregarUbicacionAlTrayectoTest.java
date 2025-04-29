@@ -1,3 +1,4 @@
+
 package com.bicicletas.trayectos.logica;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -71,7 +72,7 @@ public class Cu002_agregarUbicacionAlTrayectoTest {
             fail("No se lanzó la excepción esperada");
 
         } catch (Exception e) {
-            
+            //ok
         }
 
     }
@@ -94,9 +95,8 @@ public class Cu002_agregarUbicacionAlTrayectoTest {
             fail("No se lanzó la excepción esperada");
 
         } catch (Exception e) {
-            
+            //ok
         }
-
 
     }
 

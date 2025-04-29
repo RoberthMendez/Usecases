@@ -1,3 +1,4 @@
+
 package com.bicicletas.trayectos.logica;
 
 import java.time.LocalDateTime;
@@ -77,9 +78,11 @@ public class TrayectosService {
             throw new Exception("El trayecto no está en proceso");
 
         // 5. Determina la fecha y hora actual
+        LocalDateTime fechaActual = LocalDateTime.now();
+
         // 6. Agrega una nueva ubicación con fecha y hora actual y la longitud y latitud de la ubicación al trayecto en curso
         Ubicacion ubicacion = new Ubicacion();
-        ubicacion.setFechaHora(LocalDateTime.now());
+        ubicacion.setFechaHora(fechaActual);
         ubicacion.setLongitud(longitud);
         ubicacion.setLatitud(latitud);
         ubicacion.setTrayecto(trayecto);
@@ -91,35 +94,42 @@ public class TrayectosService {
         return ubicacion.getId();
 
     }
-    
+
+    // CU003
+    // 1. Ingresa el id del trayecto en curso
+    // 4. Actor ingresa la longitud y latitud de la ubicación actual
+    public void finalizarTrayecto(UUID idTrayecto, Double longitud, Double latitud ) throws Exception {
+
+        // 2. Verifica que exista un trayecto con ese id
+        Trayecto trayecto = trayectos.findById(idTrayecto).orElseThrow(() -> new Exception("El trayecto no existe"));
+
+        // 3. Verifica que el trayecto esté activo
+        if (!trayecto.isEnProceso())
+            throw new Exception("El trayecto no está en proceso");
+
+        // 5. Determina la fecha y hora actual
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        // 6. Agrega una nueva ubicación con fecha y hora actual y la longitud y latitud de la ubicación al trayecto en curso
+        Ubicacion ubicacion = new Ubicacion();
+        ubicacion.setFechaHora(fechaActual);
+        ubicacion.setLongitud(longitud);
+        ubicacion.setLatitud(latitud);
+        ubicacion.setTrayecto(trayecto);
+        ubicacion = ubicaciones.save(ubicacion);
+
+        trayecto.getUbicaciones().add(ubicacion);
+        trayecto = trayectos.save(trayecto);
+
+        // 7.  Calcula la duración del trayecto
+        LocalDateTime fechaHoraInicio = trayecto.getFechaHoraInicio();
+        long duracion = java.time.Duration.between(fechaHoraInicio, fechaActual).toMinutes();
+        trayecto.setDuracion(duracion);
+
+        // 8. Cambia el estado del trayecto a no activo
+        trayecto.setEnProceso(false);
+        trayecto = trayectos.save(trayecto);
+
+    }
     
 }    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
