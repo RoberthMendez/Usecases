@@ -131,5 +131,15 @@ public class TrayectosService {
         trayecto = trayectos.save(trayecto);
 
     }
+
+    // CU004
+    // 1. Ingresa el id del trayecto en curso
+    public Trayecto consultarTrayecto(UUID idTrayecto) throws Exception {
+
+        // 2. Verifica que exista un trayecto con ese id
+        Trayecto trayecto = trayectos.findById(idTrayecto).orElseThrow(() -> new Exception("El trayecto no existe"));
+
+        return trayecto;   
+    }
     
 }    
