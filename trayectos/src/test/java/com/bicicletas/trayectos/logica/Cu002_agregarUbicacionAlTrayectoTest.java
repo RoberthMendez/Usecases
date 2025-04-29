@@ -1,3 +1,4 @@
+
 package com.bicicletas.trayectos.logica;
 
 import static org.junit.jupiter.api.Assertions.fail;
