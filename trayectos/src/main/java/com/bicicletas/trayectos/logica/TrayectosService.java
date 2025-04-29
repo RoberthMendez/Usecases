@@ -2,6 +2,7 @@
 package com.bicicletas.trayectos.logica;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +141,21 @@ public class TrayectosService {
         Trayecto trayecto = trayectos.findById(idTrayecto).orElseThrow(() -> new Exception("El trayecto no existe"));
 
         return trayecto;   
+    }
+
+    // CU005
+    // 1. Ingresa la fecha de inicio y la fecha fin de los trayectos a consultar
+    public List<Trayecto> consultarTrayectosPorFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws Exception {
+
+        // 2. Verifica que la fecha de inicio sea menor a la fecha fin
+        if (fechaInicio.isAfter(fechaFin)) {
+            throw new Exception("La fecha de inicio no puede ser mayor a la fecha fin");
+        }
+
+        // 3. Consulta los trayectos entre las fechas
+        List<Trayecto> trayectosConsultados = trayectos.findEnRangoFechas(fechaInicio, fechaFin);
+        return trayectosConsultados;
+        
     }
     
 }    
